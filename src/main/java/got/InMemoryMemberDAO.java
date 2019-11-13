@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InMemoryMemberDAO implements MemberDAO {
     private static final MemberDAO dao = new InMemoryMemberDAO();
@@ -28,7 +29,7 @@ public class InMemoryMemberDAO implements MemberDAO {
             new Member(17L, Title.KING, "Stannis", LocalDate.of(1957, Month.MARCH, 27), 123456.0, new House("Baratheon")),
             new Member(18L, Title.QUEEN, "Margaery", LocalDate.of(1982, Month.FEBRUARY, 11), 80000.0, new House("Tyrell")),
             new Member(19L, Title.SIR, "Loras", LocalDate.of(1988, Month.MARCH, 24), 70000.0, new House("Tyrell")),
-            new Member(10L, Title.LADY, "Olenna", LocalDate.of(1938, Month.JULY, 20), 130000.0, new House("Tyrell")),
+            new Member(20L, Title.LADY, "Olenna", LocalDate.of(1938, Month.JULY, 20), 130000.0, new House("Tyrell")),
             new Member(21L, Title.LORD, "Roose", LocalDate.of(1963, Month.SEPTEMBER, 12), 100000.0, new House("Bolton")),
             new Member(22L, Title.LORD, "Ramsay", LocalDate.of(1985, Month.MAY, 13), 140000.0, new House("Bolton"))
     );
@@ -58,6 +59,11 @@ public class InMemoryMemberDAO implements MemberDAO {
         return allMembers.stream()
                 .filter(member -> member.getHouse().equals(house))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<Member> findAllByHouseName(String houseName) {
+        return allMembers.stream()
+                .filter(member -> member.getHouseName().equals(houseName));
     }
 
     @Override
